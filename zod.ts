@@ -9,6 +9,7 @@ export const User = z.object({
   role: z.enum(["admin", "user", "manager"]), // Use z.enum for multi-value
   website: z.string().url({ message: "Invalid url" }), // NEW url field (v4)
   tags: z.array(z.string()).max(5).default([]),
+  websites: z.url()
 });
 export type User = z.infer<typeof User>;
 
