@@ -1,13 +1,15 @@
 import * as z from "zod";
 
-// Core schema (v4 features used below)
+// Core schema (Zod v4)
 export const User = z.object({
-  id: z.string().uuid({ error: "Invalid id" }),
-  email: z.string().email({ error: "Invalid email" }),
-  age: z.coerce.number().int().min(18, { error: "Must be 18+" }),
-  active: z.stringbool(),                          // "true/false", "1/0", "yes/no", etc.
-  role: z.literal(["admin", "user", "manager"]),   // multi-literal (v4)
+  id: z.string().uuid({ message: "Invalid id" }),
+  email: z.string().email({ message: "Invalid email" }),
+  age: z.coerce.number().int().min(18, { message: "Must be 18+" }),
+  active: z.stringbool(),  // "true/false", "1/0", "yes/no", etc. Supported in v4
+  role: z.enum(["admin", "user", "manager"]), // Use z.enum for multi-value
+  website: z.string().url({ message: "Invalid url" }), // NEW url field (v4)
   tags: z.array(z.string()).max(5).default([]),
+  websites: z.url()
 });
 export type User = z.infer<typeof User>;
 
@@ -18,17 +20,15 @@ export function parseUser(input: unknown) {
   return r.data;
 }
 
-// Discriminated union (v4: unions/pipes allowed as discriminator)
+// Discriminated union, each status as a separate literal
 export const Result = z.discriminatedUnion("status", [
   z.object({ status: z.literal("success"), data: z.string() }),
-  z.object({
-    status: z.union([z.literal("error"), z.literal("fail")]),
-    message: z.string(),
-  }),
+  z.object({ status: z.literal("error"), message: z.string() }),
+  z.object({ status: z.literal("fail"), message: z.string() }),
 ]);
 
-// Type-preserving transform (v4)
-export const TrimmedNonEmpty = z.string().overwrite(s => s.trim()).min(1);
+// Type-preserving transform (use .transform())
+export const TrimmedNonEmpty = z.string().transform(s => s.trim()).min(1);
 
 // Built-in JSON Schema export (v4)
 export const userJsonSchema = z.toJSONSchema(User);
