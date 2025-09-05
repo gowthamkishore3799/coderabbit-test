@@ -1,4 +1,4 @@
-import { userJsonSchema } from "./zodVersion";
+import {userJsonSchema} from "./zod.ts";
 
 console.log(userJsonSchema);
 
