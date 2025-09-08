@@ -1,6 +1,5 @@
 import * as z from "zod";
 
-// Core schema (Zod v4)
 export const User = z.object({
   id: z.string().uuid({ message: "Invalid id" }),
   email: z.string().email({ message: "Invalid email" }),
@@ -9,8 +8,15 @@ export const User = z.object({
   role: z.enum(["admin", "user", "manager"]), // Use z.enum for multi-value
   website: z.string().url({ message: "Invalid url" }), // NEW url field (v4)
   tags: z.array(z.string()).max(5).default([]),
-  websites: z.url()
+  websites: z.url(),
+  trail: z.url(),
+  trails: z.string({ 
+  error: (issue) => issue.input === undefined 
+    ? "This field is required" 
+    : "Not a string" 
+  })
 });
+
 export type User = z.infer<typeof User>;
 
 // Safe parsing
