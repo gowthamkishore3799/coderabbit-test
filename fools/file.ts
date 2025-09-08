@@ -1,22 +1,32 @@
-import * as z from "zod";
+import * as z from "zod"
 
-// Core User schema
+// ✅ Core User schema (Zod v4.0.0)
 export const User = z.object({
-  id: z.string().uuid({ error: "Invalid id" }),
-  email: z.string().email({ error: "Invalid email" }),
-  age: z.coerce.number().int().min(18, { error: "Must be 18+" }),
+  id: z.string().uuid({ message: "Invalid id" }),
+  email: z.string().email({ message: "Invalid email" }),
+  age: z.coerce.number().int().min(18, { message: "Must be 18+" }),
+
+  // New helper in v4
   active: z.stringbool(), // parses "true/false", "1/0", "yes/no"
+
   role: z.enum(["admin", "user", "manager"]),
-  website: z.url({ error: "Invalid url" }),
-  websites: z.url(),
-  trail: z.url(),
-  trails: z
-    .string()
-    .refine((val) => val !== undefined && val.trim().length > 0, {
-      error: "This field is required",
-    }),
-});
 
-export type User = z.infer<typeof User>;
+  // Top-level URL helpers introduced in v4
+  website: z.url({ message: "Invalid url" }),
+  websites: z.array(z.url({ message: "Invalid url" })),
 
-// Safe parsing hel
+  trail: z.url({ message: "Invalid url" }),
+
+  trails: z.string().min(1, { message: "This field is required" }),
+})
+
+export type User = z.infer<typeof User>
+
+// ✅ Safe parsing helper
+export function parseUser(input: unknown) {
+  const result = User.safeParse(input)
+  if (!result.success) {
+    throw new Error(JSON.stringify(result.error.tree)) // v4 has .treeifyError()
+  }
+  return result.data
+}
