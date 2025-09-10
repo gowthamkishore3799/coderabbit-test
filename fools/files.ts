@@ -38,5 +38,3 @@ export function parseUser(input: unknown): User {
   return result.data
 }
 
-// ✅ Example usage
-const data = {
