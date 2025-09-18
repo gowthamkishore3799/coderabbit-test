@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'com.example'
@@ -10,14 +11,12 @@ repositories {
 }
 
 dependencies {
-    // Logging
-    implementation 'ch.qos.logback:logback-classic:1.5.6'
-
-    // JSON handling
     implementation 'com.google.code.gson:gson:2.11.0'
-
-    // JUnit for testing
     testImplementation 'org.junit.jupiter:junit-jupiter:5.11.0'
+}
+
+application {
+    mainClass = 'com.example.App'
 }
 
 test {
