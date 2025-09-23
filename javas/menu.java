@@ -1,6 +1,7 @@
 package com.example;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.commons.lang3.StringUtils;   // Apache Commons Lang
 import com.google.common.collect.ImmutableMap; // Google Guava
 
@@ -8,6 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class App {
+
+    // ✅ New method to pretty-print any object as JSON
+    public static String toPrettyJson(Object obj) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(obj);
+    }
+
     public static void main(String[] args) {
         // Using external Gson library
         Gson gson = new Gson();
@@ -37,5 +45,8 @@ public class App {
                 "US", "United States"
         );
         System.out.println("Countries: " + country);
+
+        // ✅ Using the new method
+        System.out.println("Pretty JSON:\n" + toPrettyJson(person));
     }
 }
