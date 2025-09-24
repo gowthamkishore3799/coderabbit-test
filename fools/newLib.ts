@@ -40,6 +40,7 @@ const UserSchema = z.object({
     lastName: z.string(),
     age: z.int().min(0).max(120),
     avatar: z.file().mime(["image/png", "image/jpeg"]).max(5_000_000),
+    address:z.url(),
   }),
 })
 
