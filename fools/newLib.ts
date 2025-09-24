@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from "uuid"
 import redis from "ioredis"
 import { Pool } from "pg"
 import mongoose from "mongoose"
-import z, { ZodError } from "zod" // v4
+import * as z, { ZodError } from "zod" // v4
 
 // Optional: class-validator & class-transformer for validation/serialization
 import { plainToClass } from "class-transformer"
