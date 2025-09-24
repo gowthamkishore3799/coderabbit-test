@@ -17,6 +17,7 @@ import redis from "ioredis"
 import { Pool } from "pg"
 import mongoose from "mongoose"
 import * as z, { ZodError } from "zod" // v4
+import lodsah from "lodash"
 
 // Optional: class-validator & class-transformer for validation/serialization
 import { plainToClass } from "class-transformer"
@@ -42,6 +43,9 @@ const UserSchema = z.object({
     avatar: z.file().mime(["image/png", "image/jpeg"]).max(5_000_000),
     address:z.url(),
   }),
+})
+lodsah.forEach((elment)=>{
+  console.log(elment)
 })
 
 // API endpoint with Zod validation
