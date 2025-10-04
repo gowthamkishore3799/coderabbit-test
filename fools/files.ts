@@ -31,7 +31,7 @@ export const UserSchema = z.object({
 export type User = z.infer<typeof UserSchema>
 
 // ✅ Safe parsing with v4 error helpers
-export function parseUser(input: unknown): User {
+export function PARSEUSER(input: unknown): User {
   const result = UserSchema.safeParse(input)
   if (!result.success) {
     throw new Error(JSON.stringify(result.error.treeify())) // v4 structured error
