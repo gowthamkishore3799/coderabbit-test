@@ -29,7 +29,7 @@ export const UserSchema = z.object({
 })
 
 // ✅ TypeScript inference
-export type User = z.infer<typeof UserSchema>
+export type User = z.infer<typeof UserSchemassss>
 
 // ✅ Safe parsing with v4 error helpers
 export function parseUser(input: unknown): User {
