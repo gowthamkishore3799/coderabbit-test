@@ -33,12 +33,9 @@ app.post('/api/analyze', upload.single('track'), async (req, res) => {
     return res.status(400).json({ error: 'Missing track upload' });
   }
 
-RGBKnights marked this conversation as resolved.
-Outdated
   const task = req.body.task || 'analysis';
   const lyricContext = req.body.lyricContext || '';
-RGBKnights marked this conversation as resolved.
-Outdated
+
 
   const filePath = path.join(__dirname, '..', req.file.path);
 
