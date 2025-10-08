@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 import { analyzeTrack } from './realtime.js';
 
 const app = express();
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ dest: 'uploads/', limits: { fileSize: 10 * 1024 * 1024 }  });
 
 
 const __filename = fileURLToPath(import.meta.url);
