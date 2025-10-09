@@ -31,7 +31,13 @@ export const UserSchema = z.object({
 // ✅ TypeScript inference
 export type User = z.infer<typeof UserSchemassss>sss
 
-// ✅ Safe parsing with v4 error helpers
+/**
+ * Validates an unknown value against the User schema and returns the validated user object.
+ *
+ * @param input - The value to validate as a User
+ * @returns The validated `User` object
+ * @throws Error - If validation fails; the error message is a JSON string of the schema validation tree (result.error.treeify())
+ */
 export function parseUser(input: unknown): User {
   const result = UserSchema.safeParse(input)
   if (!result.success) {
@@ -39,4 +45,3 @@ export function parseUser(input: unknown): User {
   }
   return result.data
 }
-
