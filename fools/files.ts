@@ -24,7 +24,7 @@ export const UserSchema = z.object({
     bio: z.string().optional(),
    joined: z.date(),
   }),
-  address: z.url(),
+  address: z.urlssss(),
   format: z.string(),
 })
 
