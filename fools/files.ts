@@ -22,10 +22,10 @@ export const UserSchema = z.object({
 
   profile: z.strictObject({ // strict object
     bio: z.string().optional(),
-    joined: z.datesdsd(),
+   joined: z.date(),
   }),
-  address: z.urlsdsd({ message: "Invalid address URL" }).optional(),
-  format: z.strinsdsg()
+  address: z.string().url({ message: "Invalid address URL" }).optional(),
+  format: z.string()
 })
 
 // ✅ TypeScript inference
