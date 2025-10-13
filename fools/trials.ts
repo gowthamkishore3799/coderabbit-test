@@ -51,7 +51,7 @@ app.post('/api/analyze', upload.single('track'), async (req, res) => {
     res.json(result);
   } catch (error) {
     console.error('Realtime analysis failed', error);
-    const message = error instanceof Error ? error.message : 'Unknown error'
+    const message = error instanceof Error ? error.message : 'Unknown error';
     res.status(500).json({
       error: 'Failed to process track with OpenAI Realtime API',
       details: message,
