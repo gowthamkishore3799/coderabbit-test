@@ -18,7 +18,11 @@ const __dirname = path.dirname(__filename);
 const PORT = process.env.PORT || 3001;
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
 
-await fs.mkdir('uploads', { recursive: true });
+try {  await fs.mkdir(path.join(__dirname, 'uploads'), { recursive: true });
+} catch (error) {
+  console.error('Failed to create uploads directory:', error);
+  process.exit(1);
+}
 
 
 app.use(cors({ origin: CLIENT_ORIGIN }));
