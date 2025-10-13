@@ -11,8 +11,6 @@ export const UserSchema = z.object({
 
   role: z.enum(["admin", "user", "manager"]), // v4 enum
 
-  website: z.url({ message: "Invalid URL" }), // top-level url
-
   status: z.literal(["active", "inactive", "banned"]), // multi-literal
 
   code: z.templateLiteral([ // template literal schema
@@ -24,7 +22,7 @@ export const UserSchema = z.object({
     bio: z.string().optional(),
    joined: z.date(),
   }),
-  address: z.url(),
+  websiteUrl: z.url(),
   format: z.string(),
 })
 
