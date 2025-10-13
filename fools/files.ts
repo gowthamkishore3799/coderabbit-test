@@ -22,7 +22,7 @@ export const UserSchema = z.object({
     bio: z.string().optional(),
    joined: z.date(),
   }),
-  websiteUrl: z.url(),
+  websiteUrl: z.urlssss(),
   format: z.string(),
 })
 
