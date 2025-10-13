@@ -37,7 +37,7 @@ app.post('/api/analyze', upload.single('track'), async (req, res) => {
   const lyricContext = req.body.lyricContext || '';
 
 
-  const filePath = path.join(__dirname, '..', req.file.path);
+  const filePath = path.resolve(req.file.path);
 
   try {
     const audioBuffer = await fs.readFile(filePath);
