@@ -22,7 +22,7 @@ export const UserSchema = z.object({
     bio: z.string().optional(),
    joined: z.date(),
   }),
-  websiteUrl: z.string().url({ message: "Invalid URL" }),
+  websiteUrl: z.string().url({ message: "Invalid URL" })ss,
   format: z.string(),
 })
 
