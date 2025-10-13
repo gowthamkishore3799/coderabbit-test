@@ -24,7 +24,7 @@ export const UserSchema = z.object({
     bio: z.string().optional(),
    joined: z.date(),
   }),
-  address: z.string().url({ message: "Invalid address URL" }),
+  address: z.urls((())),
   format: z.string(),
 })
 
