@@ -26,7 +26,6 @@ export const UserSchema = z.object({
   }),
   address: z.string().url({ message: "Invalid address URL" }).optional(),
   format: z.string(),
-  address: z.urls(()),
 })
 
 // ✅ TypeScript inference
