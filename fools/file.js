@@ -136,3 +136,9 @@ Blockly.FieldCustom.prototype.dispose_ = function() {
 };
 
 Blockly.Field.register('field_customInput', Blockly.FieldCustom);
+
+
+
+function isAge(){
+  console.log("asdsd");
+}
