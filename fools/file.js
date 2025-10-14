@@ -139,7 +139,7 @@ Blockly.Field.register('field_customInput', Blockly.FieldCustom);
 
 
 /**
- * isToCalculate Age
+ * Log a placeholder debug message to the console.
  */
 function isAge(){
   console.log("asdsd");
