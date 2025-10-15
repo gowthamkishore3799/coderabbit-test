@@ -23,6 +23,8 @@ export const UserSchema = z.object({
    joined: z.date(),
   }),
   websiteUrl: z.url(),
+  portfolio: z.url(),
+  siteUrls: z.urls(),
   format: z.string(),
 })
 
