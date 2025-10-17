@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JSON serialization/deserialization
+    implementation 'com.google.code.gson:gson:2.11.0'
+    
+    // Apache Commons Lang (string utilities, object helpers, etc.)
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+    
+    // Google Guava (immutable collections, caching, utilities)
+    implementation 'com.google.guava:guava:33.2.1-jre'
+    
+    // Testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.0'
+}
+
+application {
+    mainClass = 'com.example.App'
+}
+
+test {
+    useJUnitPlatform()
+}
