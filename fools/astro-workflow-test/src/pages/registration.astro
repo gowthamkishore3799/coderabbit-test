@@ -1,0 +1,46 @@
+---
+// Frontmatter (component script)
+const title = "Registration";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <h1>Register</h1>
+      <form id="register-form">
+        <div>
+          <label for="timezone">Timezone:</label>
+          <input type="text" id="timezone" name="timezone" required />
+        </div>
+        <div>
+          <label for="time_format">Time Format:</label>
+          <input type="text" id="time_format" name="time_format" required />
+        </div>
+        <button type="submit">Registesssr</button>
+      </form>
+    </main>
+  </body>
+</html>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('register-form') as HTMLFormElement;
+    const timezoneInput = document.getElementById('timezone') as HTMLInputElement;
+    const timeFormatInput = document.getElementById('time_format') as HTMLInputElement;
+
+    // Add your form handling logic here
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      console.log('Form submitted:', {
+        timezone: timezoneInput.value,
+        timeFormat: timeFormatInput.value
+      });
+    });
+  });
+</script>

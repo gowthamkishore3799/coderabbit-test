@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Apache Commons
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'org.apache.commons:commons-collections4:4.4'
+
+    // Google Guava
+    implementation 'com.google.guava:guava:31.1-jre'
+
+    // Jackson
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2'
+
+    // Spring Framework
+    implementation 'org.springframework:spring-context:5.3.25'
+    implementation 'org.springframework:spring-beans:5.3.25'
+    implementation 'org.springframework:spring-core:5.3.25'
+
+    // Logging
+    implementation 'org.slf4j:slf4j-api:2.0.6'
+    implementation 'ch.qos.logback:logback-classic:1.4.5'
+
+    // Testing
+    testImplementation 'junit:junit:4.13.2'
+}
+
+application {
+    mainClass = 'com.example.demo.DataProcessor'
+}
+
+tasks.named('test') {
+    useJUnit()
+}
