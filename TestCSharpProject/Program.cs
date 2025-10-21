@@ -28,6 +28,8 @@ namespace TestCSharpProject
             // Run tests
             var calculator = new Calculator();
             Console.WriteLine($"\nCalculator Test: 5 + 3 = {calculator.Add(5, 3)}");
+
+            var unusedVariable = "This variable is never used";  // Unused variable
         }
     }
 }

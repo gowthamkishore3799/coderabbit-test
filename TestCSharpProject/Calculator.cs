@@ -7,28 +7,37 @@ namespace TestCSharpProject
     /// </summary>
     public class Calculator
     {
-        public int Add(int a, int b)
+        // BREAKING CHANGE: Changed method signatures from int to string parameters
+        public string Add(string a, string b)
         {
-            return a + b;
+            int numA = int.Parse(a);
+            int numB = int.Parse(b);
+            return (numA + numB).ToString();
         }
 
-        public int Subtract(int a, int b)
+        public string Subtract(string a, string b)
         {
-            return a - b;
+            int numA = int.Parse(a);
+            int numB = int.Parse(b);
+            return (numA - numB).ToString();
         }
 
-        public int Multiply(int a, int b)
+        public string Multiply(string a, string b)
         {
-            return a * b;
+            int numA = int.Parse(a);
+            int numB = int.Parse(b);
+            return (numA * numB).ToString();
         }
 
-        public double Divide(int a, int b)
+        public string Divide(string a, string b)
         {
-            if (b == 0)
+            int numA = int.Parse(a);
+            int numB = int.Parse(b);
+            if (numB == 0)
             {
                 throw new DivideByZeroException("Cannot divide by zero");
             }
-            return (double)a / b;
+            return ((double)numA / numB).ToString();
         }
     }
 }
