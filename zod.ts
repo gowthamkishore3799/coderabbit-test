@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 export const User = z.object({
-  id: z.string().uuid({ message: "Invalid id" }),
+  id: z.uuid({ message: "Invalid id" }),
   email: z.email({ message: "Invalid email" }),
   age: z.coerce.number().int().min(18, { message: "Must be 18+" }),
   active: z.stringbool(),  // "true/false", "1/0", "yes/no", etc. Supported in v4

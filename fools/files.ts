@@ -21,7 +21,7 @@ export const UserSchema = z.object({
   ]),
 
   profile: z.strictObject({ // strict object
-    bio: z.string().optional(),
+    bio: z.optional(z.string()),
     joined: z.date(),
   }),
 })

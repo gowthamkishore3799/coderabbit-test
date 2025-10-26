@@ -14,12 +14,11 @@ export const CreateUserSchema = z.object({
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/, {
       message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
     }),
-  firstName: z.string().min(1, { message: 'First name is required' }).max(50),
-  lastName: z.string().min(1, { message: 'Last name is required' }).max(50),
-  age: z.number().int().min(18, { message: 'Must be at least 18 years old' }).max(120).optional(),
-  phoneNumber: z.string()
-    .regex(/^\+?[1-9]\d{1,14}$/, { message: 'Invalid phone number format' })
-    .optional(),
+  firstName: z.string({ message: 'First name is required' }).min(1).max(50),
+  lastName: z.string({ message: 'Last name is required' }).min(1).max(50),
+  age: z.optional(z.number().int().min(18, { message: 'Must be at least 18 years old' }).max(120)),
+  phoneNumber: z.optional(z.string()
+    .regex(/^\+?[1-9]\d{1,14}$/, { message: 'Invalid phone number format' })),
 });
 
 export const UpdateUserSchema = CreateUserSchema.partial().omit({ password: true });
@@ -50,18 +49,18 @@ export const CreateProductSchema = z.object({
   }),
   sku: z.string()
     .regex(/^[A-Z0-9]{6,12}$/, { message: 'SKU must be 6-12 uppercase letters or numbers' }),
-  tags: z.array(z.string()).max(10, { message: 'Maximum 10 tags allowed' }).optional(),
+  tags: z.optional(z.array(z.string()).max(10, { message: 'Maximum 10 tags allowed' })),
   isActive: z.boolean().default(true),
 });
 
 export const UpdateProductSchema = CreateProductSchema.partial();
 
 export const ProductQuerySchema = z.object({
-  category: z.string().optional(),
-  minPrice: z.coerce.number().positive().optional(),
-  maxPrice: z.coerce.number().positive().optional(),
-  inStock: z.coerce.boolean().optional(),
-  search: z.string().optional(),
+  category: z.optional(z.string()),
+  minPrice: z.optional(z.coerce.number().positive()),
+  maxPrice: z.optional(z.coerce.number().positive()),
+  inStock: z.optional(z.coerce.boolean()),
+  search: z.optional(z.string()),
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().max(100).default(20),
   sortBy: z.enum(['name', 'price', 'createdAt', 'stock']).default('createdAt'),
@@ -80,10 +79,10 @@ export const ProductQuerySchema = z.object({
  * Order validation schemas
  */
 export const CreateOrderSchema = z.object({
-  userId: z.string().uuid({ message: 'Invalid user ID format' }),
+  userId: z.uuid({ message: 'Invalid user ID format' }),
   items: z.array(
     z.object({
-      productId: z.string().uuid({ message: 'Invalid product ID format' }),
+      productId: z.uuid({ message: 'Invalid product ID format' }),
       quantity: z.number()
         .int({ message: 'Quantity must be an integer' })
         .positive({ message: 'Quantity must be positive' })
@@ -120,7 +119,7 @@ export const OrderStatusSchema = z.enum([
 
 export const UpdateOrderStatusSchema = z.object({
   status: OrderStatusSchema,
-  notes: z.string().max(500).optional(),
+  notes: z.optional(z.string().max(500)),
 });
 
 /**
