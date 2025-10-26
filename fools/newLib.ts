@@ -32,7 +32,7 @@ app.use(morgan("dev"))
 // Zod v4 schema examples
 const UserSchema = z.object({
   id: z.string().uuid(),
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(8),
   createdAt: z.date(),
   profile: z.object({

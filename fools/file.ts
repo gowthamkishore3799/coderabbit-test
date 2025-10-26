@@ -3,7 +3,7 @@ import * as z from "zod"
 // ✅ Core User schema (Zod v4.0.0)
 export const User = z.object({
   id: z.string().uuid({ message: "Invalid id" }),
-  email: z.string().email({ message: "Invalid email" }),
+  email: z.email({ message: "Invalid email" }),
   age: z.coerce.number().int().min(18, { message: "Must be 18+" }),
 
   // New helper in v4
