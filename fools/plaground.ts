@@ -23,7 +23,7 @@ export const UserSchema = z.object({
   }),
   websiteUrl: z.url(),
   portfolio: z.url(),
-  siteUrls: z.urls(),
+  siteUrls: z.url(),
   format: z.string(),
 })
 
