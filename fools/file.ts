@@ -32,3 +32,15 @@ export function parseUser(input: unknown) {
   }
   return result.data
 }
+
+// New helper function to validate user data from API requests
+export function validateUserFromRequest(requestData: unknown): User {
+  // This function will be used by the Express API
+  sad
+  return parseUser(requestData);
+}
+
+// Helper to check if a user has admin privileges
+export function isAdmin(user: User): boolean {
+  return user.role === 'admin';
+}
