@@ -13,12 +13,18 @@ export const UserSchema = z.object({
 
   website: z.url({ message: "Invalid URL" }), // top-level url
 
+  portfolioUrl: z.url().optional(),
+
   status: z.literal(["active", "inactive", "banned"]), // multi-literal
 
   code: z.templateLiteral([ // template literal schema
     z.literal("user-"),
     z.number().min(1).max(9999),
   ]),
+
+  imageUrl: z.url(),
+
+  name: z.string().min(2).max(100).trim(), // string with trim
 
   profile: z.strictObject({ // strict object
     bio: z.string().optional(),
