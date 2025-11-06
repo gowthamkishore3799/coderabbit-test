@@ -1,0 +1,115 @@
+/* Tailwind CSS v4 - Main Stylesheet */
+
+@import "tailwindcss";
+
+/* Tailwind v4: Custom utilities using @layer */
+@layer base {
+  :root {
+    --color-primary: #0ea5e9;
+    --color-secondary: #8b5cf6;
+    --color-accent: #f59e0b;
+    --spacing-unit: 0.25rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased bg-white text-gray-900;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+}
+
+@layer components {
+  /* Button component with variants */
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700;
+  }
+
+  .btn-secondary {
+    @apply btn bg-gray-200 text-gray-900 hover:bg-gray-300 active:bg-gray-400;
+  }
+
+  .btn-accent {
+    @apply btn bg-accent text-white hover:bg-accent-dark active:scale-95;
+  }
+
+  /* Card component */
+  .card {
+    @apply bg-white rounded-xl shadow-lg p-6 border border-gray-200;
+  }
+
+  .card-hover {
+    @apply card transition-transform hover:scale-105 hover:shadow-xl;
+  }
+
+  /* Input component */
+  .input {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+  }
+
+  /* Badge component */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-success {
+    @apply badge bg-green-100 text-green-800;
+  }
+
+  .badge-warning {
+    @apply badge bg-yellow-100 text-yellow-800;
+  }
+
+  .badge-error {
+    @apply badge bg-red-100 text-red-800;
+  }
+}
+
+@layer utilities {
+  /* Tailwind v4: Custom utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animation-paused {
+    animation-play-state: paused;
+  }
+
+  .animation-running {
+    animation-play-state: running;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Gradient utilities */
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary-500 to-primary-700;
+  }
+
+  .gradient-accent {
+    @apply bg-gradient-to-r from-accent to-accent-dark;
+  }
+}
+
+/* Tailwind v4: Container queries example */
+@container (min-width: 400px) {
+  .card {
+    @apply p-8;
+  }
+}
