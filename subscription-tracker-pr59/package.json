@@ -1,0 +1,9 @@
+{
+  "name": "subscription-tracker-pr59",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev": "pnpm --filter @subscription-tracker/web dev",
+    "build": "pnpm --filter @subscription-tracker/web build"
+  }
+}
