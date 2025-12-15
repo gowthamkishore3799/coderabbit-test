@@ -4,7 +4,9 @@
   "description": "Hi asd",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test 'fools/*.test.ts'",
+    "test:watch": "node --test --watch 'fools/*.test.ts'",
+    "test:verbose": "node --test --reporter=tap 'fools/*.test.ts'"
   },
   "repository": {
     "type": "git",
