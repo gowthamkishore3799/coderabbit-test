@@ -4,7 +4,9 @@
   "description": "Hi asd",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,9 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.0",
-    "postcss": "^8.4.47"
+    "postcss": "^8.4.47",
+    "vitest": "^1.0.4",
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.6"
   }
 }
