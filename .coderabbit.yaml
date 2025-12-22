@@ -1,0 +1,10 @@
+reviews:
+  request_changes_workflow: true  # Required to block PRs on error mode
+  pre_merge_checks:
+    custom_checks:
+      - name: "Security Review"
+        instructions: "Ensure no hardcoded secrets or API keys are present"
+        mode: "error"
+      - name: "Documentation Check"
+        instructions: "Verify public functions have docstrings"
+        mode: "warning"
