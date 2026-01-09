@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from openai import OpenAI
 from typing import Literal
 
-from typed_dict_example import ThumbnailInfo, create_thumbnail, get_thumbnail_display
+from thumbnail import ThumbnailInfo, create_thumbnail, get_thumbnail_display
 
 
 class ExtractedInfo(BaseModel):
@@ -51,6 +51,5 @@ if __name__ == "__main__":
     print(f"Occupation: {result.occupation}")
     print(f"Sentiment: {result.sentiment}")
 
-    # Use ThumbnailInfo from typed_dict_example
     thumbnail = create_profile_thumbnail(result)
     print(f"\nThumbnail: {get_thumbnail_display(thumbnail)}")
