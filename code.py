@@ -9,7 +9,7 @@ class ThumbnailInfoRequired(ThumbnailInfo):
     title: str
     url: str
 
-# Creating a thumbnail -
+# Creating a thumbnail
 thumbnail = ThumbnailInfoRequired(
     version=1,
     title="Profile Picture",
