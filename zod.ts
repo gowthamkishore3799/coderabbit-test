@@ -2,7 +2,7 @@ import * as z from "zod";
 
 
 Text to remove more before merged in main branch:: before deploygint to production::::
-
+Information to be proceesseds
 export const User = z.object({
   id: z.string().uuid({ message: "Invalid id" }),
   email: z.string().email({ message: "Invalid email" }),
