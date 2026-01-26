@@ -4,6 +4,8 @@ import hashlib
 import sqlite3
 from datetime import datetime
 
+
+//code
 class UserManager:
     def __init__(self, db_path):
         self.db_path = db_path
