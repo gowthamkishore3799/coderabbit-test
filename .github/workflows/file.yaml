@@ -1,0 +1,229 @@
+name: Deploy & Eval Reviewer
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_e2e:
+        description: "Trigger evaluation after deploy"
+        required: false
+        default: false
+        type: boolean
+      run_name:
+        description: "Run name"
+        required: false
+        default: ""
+        type: string
+      self_hosted_eval_run:
+        description: "Trigger eval run in self hosted"
+        required: false
+        default: false
+        type: boolean
+      eval_type:
+        description: "Evaluation type (dataset)"
+        required: true
+        default: "golden-pr-dataset"
+        type: choice
+        options:
+          - golden-pr-dataset
+          - swebench-lite
+          - mono-dev
+      scope_type:
+        description: "Scope"
+        required: true
+        default: "all"
+        type: choice
+        options:
+          - all
+          - custom_ids
+          - custom_ids_fast
+          - not_saturated
+      scope_value:
+        description: |
+          Only if selected "custom_ids" or "custom_ids_fast" above. Enter comma-separated IDs.
+        required: false
+        default: ""
+        type: string
+
+  schedule:
+    - cron: "30 15 * * *"
+
+# Cancel in-progress runs for the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SCHEDULE_BRANCH: "main"
+  SCHEDULE_RUN_NAME: "evalM"
+  SCHEDULE_EVAL_TYPE: "golden-pr-dataset"
+  SCHEDULE_SCOPE_TYPE: "custom_ids_fast"
+  SCHEDULE_SCOPE_VALUE: "148,209,167,103,219,250,115,108,163,220,102,146,53,275,65,154,25,92,269,30,139,294,58,55,70"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest-8-cores
+    timeout-minutes: 25
+    steps:
+      - name: Delete huge unnecessary tools folder
+        run: rm -rf /opt/hostedtoolcache
+
+      - name: Checkout code (schedule)
+        if: ${{ github.event_name == 'schedule' }}
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Checkout code (manual)
+        if: ${{ github.event_name != 'schedule' }}
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: "${{ secrets.GOOGLECLOUDSA }}"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-${{ github.workflow }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-${{ github.workflow }}-
+
+      - name: Configure Docker
+        run: |
+          gcloud auth configure-docker
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./pr-reviewer-saas/Dockerfile
+          target: runner
+          push: true
+          tags: |
+            gcr.io/coderabbit/pr-reviewer-saas-eval:${{ github.sha }}
+            gcr.io/coderabbit/pr-reviewer-saas-eval:latest
+          build-args: |
+            NODE_ENV=development
+            DD_GIT_REPOSITORY_URL=${{ github.server_url }}/${{ github.repository }}
+            DD_GIT_COMMIT_SHA=${{ github.sha }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+          platforms: linux/amd64
+
+      - name: Move Docker cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: development
+    timeout-minutes: 15
+    steps:
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: "${{ secrets.GOOGLECLOUDSA }}"
+
+      - name: Deploy services
+        run: |
+          gcloud run deploy pr-reviewer-saas-eval --image gcr.io/coderabbit/pr-reviewer-saas-eval:${{ github.sha }} --region us-central1 --allow-unauthenticated --vpc-connector=coderabbitai-dev-cr
+
+  e2e:
+    name: E2E Test Evaluation
+    if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.run_e2e == 'true') }}
+    needs: deploy
+    runs-on: ubuntu-latest
+    env:
+      E2E_URL: "https://us-central1-coderabbit.cloudfunctions.net/e2e-reviewer"
+      E2E_REVIEWER_API_KEY: ${{ secrets.E2E_REVIEWER_API_KEY }}
+      BRANCH: ${{ github.ref_name }}
+    steps:
+      - name: Resolve inputs (manual vs schedule)
+        run: |
+          if [[ "${{ github.event_name }}" == "schedule" ]]; then
+            echo "BRANCH=${SCHEDULE_BRANCH}" >> $GITHUB_ENV
+            echo "RUN_NAME=${SCHEDULE_RUN_NAME}" >> $GITHUB_ENV
+            echo "EVAL_TYPE=${SCHEDULE_EVAL_TYPE}" >> $GITHUB_ENV
+            echo "SCOPE_TYPE=${SCHEDULE_SCOPE_TYPE}" >> $GITHUB_ENV
+            echo "SCOPE_VALUE=${SCHEDULE_SCOPE_VALUE}" >> $GITHUB_ENV
+            echo "SELF_HOSTED_EVAL_RUN=false" >> $GITHUB_ENV
+            echo "Resolved inputs from schedule defaults"
+          else
+            RUN_NAME_INPUT="${{ github.event.inputs.run_name }}"
+            EVAL_TYPE_INPUT="${{ github.event.inputs.eval_type }}"
+            SCOPE_TYPE_INPUT="${{ github.event.inputs.scope_type }}"
+            SCOPE_VALUE_INPUT="${{ github.event.inputs.scope_value }}"
+            SELF_HOSTED_INPUT="${{ github.event.inputs.self_hosted_eval_run }}"
+            if [[ -z "$RUN_NAME_INPUT" ]]; then RUN_NAME_INPUT="manual"; fi
+            echo "BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+            echo "RUN_NAME=$RUN_NAME_INPUT" >> $GITHUB_ENV
+            echo "EVAL_TYPE=$EVAL_TYPE_INPUT" >> $GITHUB_ENV
+            echo "SCOPE_TYPE=$SCOPE_TYPE_INPUT" >> $GITHUB_ENV
+            echo "SCOPE_VALUE=$SCOPE_VALUE_INPUT" >> $GITHUB_ENV
+            echo "SELF_HOSTED_EVAL_RUN=$SELF_HOSTED_INPUT" >> $GITHUB_ENV
+            echo "Resolved inputs from manual dispatch"
+          fi
+      - name: Verify E2E service is online
+        run: |
+          echo "Pinging $E2E_URL/ping"
+          response=$(curl -s -w "\n%{http_code}" "$E2E_URL/ping")
+          body=$(echo "$response" | head -n1)
+          code=$(echo "$response" | tail -n1)
+          echo "Body: $body"
+          echo "Status: $code"
+          if [[ "$code" != "200" || "$body" != "pong" ]]; then
+            echo "❌ E2E service is not healthy"
+            exit 1
+          fi
+          echo "✅ E2E service healthy"
+      - name: Trigger Eval Flow
+        run: |
+          DATE=$(date +%y%m%d)
+          RUN_NAME="${RUN_NAME}-${DATE}"
+
+          # Determine scope type and value
+          if [[ "$SCOPE_TYPE" == "custom_ids" && -n "$SCOPE_VALUE" ]]; then
+            FINAL_SCOPE_TYPE="custom_ids"
+            FINAL_SCOPE_VALUE="$SCOPE_VALUE"
+            echo "✅ Using custom IDs: $SCOPE_VALUE"
+          elif [[ "$SCOPE_TYPE" == "custom_ids_fast" && -n "$SCOPE_VALUE" ]]; then
+            FINAL_SCOPE_TYPE="custom_ids_fast"
+            FINAL_SCOPE_VALUE="$SCOPE_VALUE"
+            echo "✅ Using custom IDs fast: $SCOPE_VALUE"
+          elif [[ "$SCOPE_TYPE" == "all" ]]; then
+            FINAL_SCOPE_TYPE="all"
+            FINAL_SCOPE_VALUE=""
+            echo "✅ Using all tests"
+          elif [[ "$SCOPE_TYPE" == "not_saturated" ]]; then
+            FINAL_SCOPE_TYPE="not_saturated"
+            FINAL_SCOPE_VALUE=""
+            echo "✅ Using not saturated tests"
+          else
+            # Default to all for any error case
+            FINAL_SCOPE_TYPE="all"
+            FINAL_SCOPE_VALUE=""
+            echo "⚠️  Invalid configuration, defaulting to all tests (SCOPE_TYPE: $SCOPE_TYPE, SCOPE_VALUE: $SCOPE_VALUE)"
+          fi
+
+          # Log evaluation type
+          echo "📋 Evaluation type: $EVAL_TYPE"
+
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$E2E_URL" \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: $E2E_REVIEWER_API_KEY" \
+            -H "x-github-actions: true" \
+            -d "{\"eval\":{\"evalType\":\"$EVAL_TYPE\",\"runName\":\"$RUN_NAME\",\"scope\":{\"type\":\"$FINAL_SCOPE_TYPE\",\"value\":\"$FINAL_SCOPE_VALUE\"},\"isSelfHosted\":$SELF_HOSTED_EVAL_RUN}}")
+          if [[ "$code" != "202" ]]; then
+            exit 1
+          fi
+          echo "✅ Eval trigger accepted"
