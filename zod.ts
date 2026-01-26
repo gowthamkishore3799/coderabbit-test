@@ -13,6 +13,7 @@ export const User = z.object({
   tags: z.array(z.string()).max(5).default([]),
   websites: z.url(),
   trail: z.url(),
+  error:z.string(),
   trails: z.string({ 
   error: (issue) => issue.input === undefined 
     ? "This field is required" 
