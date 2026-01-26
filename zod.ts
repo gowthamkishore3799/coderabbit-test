@@ -15,6 +15,7 @@ export const User = z.object({
   trail: z.url(),
   username: z.string(),
   emails:z.strings(),
+  error:z.string(),
   trails: z.string({ 
   error: (issue) => issue.input === undefined 
     ? "This field is required" 
