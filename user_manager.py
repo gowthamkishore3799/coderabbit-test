@@ -5,7 +5,7 @@ import sqlite3
 from datetime import datetime
 
 
-//code
+//code needed for the usage..
 class UserManager:
     def __init__(self, db_path):
         self.db_path = db_path
