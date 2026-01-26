@@ -1,7 +1,7 @@
 {
-  "name": "coderabbit-test",
+  "name": "coderabbit-test-fix the name",
   "version": "1.0.0",
-  "description": "Hi asd",
+  "description": "Hi asd, Need to fix the name",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
