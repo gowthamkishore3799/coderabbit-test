@@ -1,5 +1,9 @@
 import * as z from "zod";
 
+
+Text to remove more before merged in main branch:: before deploygint to production::::
+Information to be proceesseds
+DATA
 export const User = z.object({
   id: z.string().uuid({ message: "Invalid id" }),
   email: z.string().email({ message: "Invalid email" }),
@@ -10,6 +14,9 @@ export const User = z.object({
   tags: z.array(z.string()).max(5).default([]),
   websites: z.url(),
   trail: z.url(),
+  username: z.string(),
+  emails:z.strings(),
+  error:z.string(),
   trails: z.string({ 
   error: (issue) => issue.input === undefined 
     ? "This field is required" 

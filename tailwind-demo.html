@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind CSS v4 Demo</title>
+  <link href="./styles.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <!-- Header Section -->
+    <header class="text-center mb-12 animate-fade-in">
+      <h1 class="text-4xl! font-bold text-primary-600 mb-4 ring-3">
+        Tailwind CSS v4 Features Demo
+      </h1>
+      <p class="text-gray-600 text-lg">
+        Showcasing the latest features and utilities
+      </p>
+    </header>
+
+    <!-- Button Variants Section -->
+    <section class="card mb-8 animate-slide-up">
+      <h2 class="text-2xl font-bold mb-4">Button Variants</h2>
+      <div class="flex flex-wrap gap-4">
+        <button class="btn-primary">Primary Button</button>
+        <button class="btn-secondary">Secondary Button</button>
+        <button class="btn-accent">Accent Button</button>
+      </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold mb-4">Responsive Cards</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card-hover">
+          <h3 class="text-xl font-bold mb-2">Card Title 1</h3>
+          <p class="text-gray-600 mb-4">
+            This is a hover-enabled card with smooth transitions.
+          </p>
+          <span class="badge-success">Active</span>
+        </div>
+
+        <div class="card-hover">
+          <h3 class="text-xl font-bold mb-2">Card Title 2</h3>
+          <p class="text-gray-600 mb-4">
+            Features include shadow effects and scale animations.
+          </p>
+          <span class="badge-warning">Pending</span>
+        </div>
+
+        <div class="card-hover">
+          <h3 class="text-xl font-bold mb-2">Card Title 3</h3>
+          <p class="text-gray-600 mb-4">
+            Built with Tailwind v4's enhanced component system.
+          </p>
+          <span class="badge-error">Inactive</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="card mb-8">
+      <h2 class="text-2xl font-bold mb-4">Form Elements</h2>
+      <form class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Email Address
+          </label>
+          <input
+            type="email"
+            class="input"
+            placeholder="Enter your email"
+          >
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Password
+          </label>
+          <input
+            type="password"
+            class="input"
+            placeholder="Enter your password"
+          >
+        </div>
+
+        <button type="submit" class="btn-primary w-full">
+          Submit Form
+        </button>
+      </form>
+    </section>
+
+    <!-- Gradient Section -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold mb-4">Gradient Backgrounds</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="gradient-primary rounded-xl p-8 text-white">
+          <h3 class="text-xl font-bold mb-2">Primary Gradient</h3>
+          <p>Beautiful gradient using Tailwind v4 utilities</p>
+        </div>
+
+        <div class="gradient-accent rounded-xl p-8 text-white">
+          <h3 class="text-xl font-bold mb-2">Accent Gradient</h3>
+          <p>Custom gradient configurations</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Animation Showcase -->
+    <section class="card mb-8">
+      <h2 class="text-2xl font-bold mb-4">Animation Examples</h2>
+      <div class="flex flex-wrap gap-6">
+        <div class="animate-fade-in bg-primary-100 p-6 rounded-lg">
+          <p class="font-medium">Fade In Animation</p>
+        </div>
+
+        <div class="animate-slide-up bg-accent-light p-6 rounded-lg">
+          <p class="font-medium text-white">Slide Up Animation</p>
+        </div>
+
+        <div class="animate-bounce-slow bg-green-100 p-6 rounded-lg">
+          <p class="font-medium text-green-800">Slow Bounce</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Utilities Showcase -->
+    <section class="card">
+      <h2 class="text-2xl font-bold mb-4">Custom Utilities</h2>
+      <div class="space-y-4">
+        <div class="bg-gray-100 p-4 rounded-lg">
+          <p class="text-balance">
+            This text uses the text-balance utility for optimal readability
+            across different screen sizes and line lengths.
+          </p>
+        </div>
+
+        <div class="overflow-x-auto scrollbar-hide">
+          <div class="flex gap-4 w-max">
+            <div class="bg-primary-200 p-4 rounded">Item 1</div>
+            <div class="bg-primary-300 p-4 rounded">Item 2</div>
+            <div class="bg-primary-400 p-4 rounded">Item 3</div>
+            <div class="bg-primary-500 p-4 rounded text-white">Item 4</div>
+            <div class="bg-primary-600 p-4 rounded text-white">Item 5</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

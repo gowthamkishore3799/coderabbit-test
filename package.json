@@ -4,6 +4,7 @@
   "description": "Hi asd",
   "main": "index.js",
   "type": "module",
+
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -39,6 +40,11 @@
     "@vitejs/plugin-react": "^4.3.4",
     "prisma": "^6.18.0",
     "tailwindcss": "^4.0.0",
-    "vite": "^6.0.1"
+    "vite": "^6.0.1",
+    "react-dom": "^19.2.0",
+    "@octokit/rest": "^20.0.2",
+    "typescript": "^5.9.3",
+    "zod": "^4.1.5",
+    "postcss": "^8.4.47"
   }
 }
