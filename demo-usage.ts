@@ -9,6 +9,16 @@ import {
 const analytics = new AnalyticsService();
 const notifications = new NotificationService();
 
+/**
+ * Demonstrates internal package services: tracks analytics events and sends/prints notifications.
+ *
+ * @returns {void}
+ *
+ * @example
+ * demonstrateServices();
+ *
+ * @sideEffects Logs output to the console, calls {@link AnalyticsService.track} and {@link NotificationService.send}.
+ */
 function demonstrateServices() {
   console.log('=== Demonstrating Internal Package Services ===\n');
 
