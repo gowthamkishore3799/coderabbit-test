@@ -1,8 +1,10 @@
 
 import {userJsonSchema} from "./zod.ts";
 
-console.log(userJsonSchema);
+const annotatedUserJsonSchema = {
+  ...userJsonSchema,
+  title: "User Schema",
+};
 
-// You can annotate the JSON Schema object if you want:
-(userJsonSchema as any).title = "User Schema";
+console.log(annotatedUserJsonSchema);
 
