@@ -11,7 +11,7 @@ export const UserSchema = z.object({
 
   role: z.enum(["admin", "user", "manager"]), // v4 enum
 
-  status: z.literal(["active", "inactive", "banned"]), // multi-literal
+  status: z.enum(["active", "inactive", "banned"]),
 
   code: z.templateLiteral([ // template literal schema
     z.literal("user-"),
