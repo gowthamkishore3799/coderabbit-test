@@ -33,8 +33,8 @@ export const Result = z.discriminatedUnion("status", [
   z.object({ status: z.literal("fail"), message: z.string() }),
 ]);
 
-// Type-preserving transform (use .transform())
-export const TrimmedNonEmpty = z.string().transform(s => s.trim()).min(1);
+/** Validates that a string is non-empty, then trims surrounding whitespace. */
+export const TrimmedNonEmpty = z.string().min(1).transform(s => s.trim());
 
 // Built-in JSON Schema export (v4)
 export const userJsonSchema = z.toJSONSchema(User);
