@@ -8,4 +8,4 @@ const Player = z.object({
 
 
 
-const var = "Variable DEfined";
+const statusMessage = "Variable defined";
