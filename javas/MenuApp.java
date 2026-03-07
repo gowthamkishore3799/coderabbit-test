@@ -10,12 +10,23 @@ import java.util.Map;
 
 public class MenuApp {
 
-    // ✅ New method to pretty-print any object as JSON
+    /**
+     * Converts an object to a pretty-printed JSON string.
+     *
+     * @param obj the object to serialize
+     * @return the pretty-printed JSON representation
+     */
     public static String toPrettyJson(Object obj) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(obj);
     }
 
+    /**
+     * Demonstrates JSON serialization with Gson, string utilities with Apache Commons Lang,
+     * and immutable collections with Google Guava.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         // Using external Gson library
         Gson gson = new Gson();
