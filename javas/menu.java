@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableMap; // Google Guava
 import java.util.HashMap;
 import java.util.Map;
 
-public class App {
+public class MenuApp {
 
     // ✅ New method to pretty-print any object as JSON
     public static String toPrettyJson(Object obj) {
