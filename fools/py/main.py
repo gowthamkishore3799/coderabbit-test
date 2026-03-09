@@ -9,7 +9,6 @@ import random
 import datetime
 import json
 import functools
-import itertools
 import string
 
 
