@@ -8,11 +8,10 @@ const player = z.object({
 })
 console.log("DATA", player)
 // ✅ Example data
-const goodData = {
+const invalidData = {
   name: "Messi",
   age: 36,
   address: 36,
 }
 
-
-console.log(player.parse(goodData))
+console.log(player.safeParse(invalidData))
