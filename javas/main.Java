@@ -14,7 +14,9 @@ public class App {
 
         Map<String, String> dependencies = new LinkedHashMap<>();
 
-        Pattern pattern = Pattern.compile("^(implementation|api|compile)\\s*[\"'(]([^\"'()]{1,200})[\"')]");
+        Pattern pattern = Pattern.compile(
+                "^(implementation|api|compile|compileOnly|runtimeOnly|testImplementation|testCompileOnly|testRuntimeOnly)\\s*[\"'(]([^\"'()]{1,200})[\"')]"
+        );
         for (String line : content.split("\\R")) {
             String trimmedLine = line.trim();
             if (trimmedLine.isEmpty() || trimmedLine.startsWith("//") || trimmedLine.startsWith("/*")) {
