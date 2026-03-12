@@ -23,11 +23,7 @@ Zod v4 introduces cleaner syntax for common validations:
 // Instead of z.string().email()
 z.email({ message: "Invalid email" })
 
-//Code impleemntation
-
-//Needed more
-
-//some more
+// Zod v4 provides a top-level z.uuid() shorthand for UUID validation
 // Instead of z.string().uuid()
 z.uuid({ message: "Invalid UUID" })
 
