@@ -1,6 +1,7 @@
 """String utility functions with some questionable implementations."""
 
 import re
+import string
 
 
 def reverse_string(s):
@@ -45,12 +46,14 @@ def remove_duplicates(s):
 
 
 def find_longest_word(sentence):
-    # Bug: doesn't handle punctuation
     words = sentence.split()
     longest = ""
     for word in words:
-        if len(word) > len(longest):
-            longest = word
+        cleaned_word = word.strip(string.punctuation)
+        if not cleaned_word:
+            continue
+        if len(cleaned_word) > len(longest):
+            longest = cleaned_word
     return longest
 
 
