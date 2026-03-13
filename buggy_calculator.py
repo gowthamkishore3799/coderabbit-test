@@ -100,13 +100,15 @@ class DatabaseConnection:
 
 
 def race_condition_counter():
+    """Increment a shared counter from multiple threads in a thread-safe manner using a lock."""
     counter = {"value": 0}
+    lock = threading.Lock()
 
     def increment():
-        # Bug: race condition - not thread-safe
         for _ in range(100000):
-            current = counter["value"]
-            counter["value"] = current + 1
+            with lock:
+                current = counter["value"]
+                counter["value"] = current + 1
 
     threads = [threading.Thread(target=increment) for _ in range(4)]
     for t in threads:
