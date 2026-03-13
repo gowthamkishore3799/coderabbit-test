@@ -76,8 +76,8 @@ def unsafe_eval(expression):
     return result
 
 
-password = "admin123"  # Hardcoded password
-API_KEY = "sk-1234567890abcdef"  # Hardcoded API key
+password = os.environ.get("APP_PASSWORD")
+API_KEY = os.environ.get("API_KEY")
 
 
 class DatabaseConnection:
