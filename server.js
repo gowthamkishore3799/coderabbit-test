@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+const productsRouter = require("./routes/products");
+const ordersRouter = require("./routes/orders");
 
 app.use(express.json());
 
@@ -37,6 +40,9 @@ app.delete("/users/:id", (req, res) => {
   const deleted = users.splice(index, 1);
   res.json({ message: "User deleted", user: deleted[0] });
 });
+
+app.use("/products", productsRouter);
+app.use("/orders", ordersRouter);
 
 app.get("/health", (req, res) => {
   res.json({ status: "ok", uptime: process.uptime() });
