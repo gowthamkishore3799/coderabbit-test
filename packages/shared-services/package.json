@@ -1,0 +1,24 @@
+{
+  "name": "@coderabbit-test/shared-services",
+  "version": "1.0.0",
+  "description": "Internal shared services package for testing service recognition",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": ["internal", "services", "shared"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0",
+    "vitest": "^2.0.0"
+  },
+  "dependencies": {
+    "zod": "^4.0.0"
+  }
+}
