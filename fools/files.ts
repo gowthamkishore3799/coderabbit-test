@@ -11,9 +11,7 @@ export const UserSchema = z.object({
 
   role: z.enum(["admin", "user", "manager"]), // v4 enum
 
-  website: z.url({ message: "Invalid URL" }), // top-level url
-
-  status: z.literal(["active", "inactive", "banned"]), // multi-literal
+  status: z.enum(["active", "inactive", "banned"]),
 
   code: z.templateLiteral([ // template literal schema
     z.literal("user-"),
@@ -22,8 +20,12 @@ export const UserSchema = z.object({
 
   profile: z.strictObject({ // strict object
     bio: z.string().optional(),
-    joined: z.date(),
+   joined: z.date(),
   }),
+  websiteUrl: z.url(),
+  portfolio: z.url(),
+  siteUrls: z.array(z.url()),
+  format: z.string(),
 })
 
 // ✅ TypeScript inference

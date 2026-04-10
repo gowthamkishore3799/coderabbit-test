@@ -1,6 +1,6 @@
-import * as z from "zod"; 
- 
-const Player = z.object({ 
+import * as z from "zod";
+
+export const Player = z.object({
   username: z.string(),
   xp: z.number(),
   address: z.url(),
@@ -8,4 +8,4 @@ const Player = z.object({
 
 
 
-const var = "Variable DEfined";
+export const statusMessage = "Variable defined";
