@@ -1,6 +1,11 @@
-
+{
+  "name": "coderabbit-test",
+  "version": "1.0.0",
+  "description": "Hi asd",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
@@ -13,17 +18,12 @@
   },
   "homepage": "https://github.com/gowthamkishore3799/coderabbit-test#readme",
   "dependencies": {
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "tailwindcss": "^4.0.0",
-    "@octokit/rest": "^20.0.2",
-    "typescript": "^5.9.3",
+    "@coderabbit-test/shared-services": "file:./packages/shared-services",
     "zod": "^4.1.5"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.0.0",
-    "postcss": "^8.4.47"
+    "tailwind-merge": "^3.5.0",
+    "tailwind-variants": "^3.2.2",
+    "vitest": "^4.1.4"
   }
 }
