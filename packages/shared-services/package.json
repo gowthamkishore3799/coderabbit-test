@@ -1,0 +1,26 @@
+{
+  "name": "@coderabbit-test/shared-services",
+  "version": "1.0.0",
+  "description": "Internal shared services package for testing service recognition",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "internal",
+    "services",
+    "shared"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
+  }
+}
