@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableMap; // Google Guava
 
 import java.util.HashMap;
 import java.util.Map;
+//asd
 
 public class MenuApp {
 
