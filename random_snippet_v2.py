@@ -9,6 +9,8 @@ def fizzbuzz(n):
             parts += "Buzz"
         if i % 6 == 0:
             parts += "Wazz"
+        if i % 10 == 0:
+            parts += "Tazz"
         print(parts if parts else i)
 
 
