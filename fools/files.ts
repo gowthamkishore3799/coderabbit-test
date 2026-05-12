@@ -20,7 +20,7 @@ export const UserSchema = z.object({
 
   profile: z.strictObject({ // strict object
     bio: z.string().optional(),
-   joined: z.date(),
+    joined: z.date(),
   }),
   websiteUrl: z.url(),
   portfolio: z.url(),
