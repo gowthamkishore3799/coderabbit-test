@@ -44,7 +44,7 @@ function demonstrateServices() {
     }
   });
 
-  const notificationId = notifications.send(
+  notifications.send(
     NotificationType.SUCCESS,
     'Welcome!',
     'You have successfully logged in.'
