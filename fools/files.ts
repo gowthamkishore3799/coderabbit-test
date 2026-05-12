@@ -1,7 +1,11 @@
 // user.schema.ts
 import { z } from "zod"
 
-// ✅ Pure Zod v4 schema
+/**
+ * Pure Zod v4 schema for validating user objects.
+ * Validates id (UUID), email, age (min 18), active (stringbool), role/status (enums),
+ * a template-literal code, a strict profile object, and multiple URL fields.
+ */
 export const UserSchema = z.object({
   id: z.uuid({ message: "Invalid ID" }), // top-level uuid
   email: z.email({ message: "Invalid email" }), // top-level email
@@ -20,7 +24,7 @@ export const UserSchema = z.object({
 
   profile: z.strictObject({ // strict object
     bio: z.string().optional(),
-   joined: z.date(),
+    joined: z.date(),
   }),
   websiteUrl: z.url(),
   portfolio: z.url(),
@@ -28,10 +32,16 @@ export const UserSchema = z.object({
   format: z.string(),
 })
 
-// ✅ TypeScript inference
+/** TypeScript type inferred from the {@link UserSchema} Zod schema. */
 export type User = z.infer<typeof UserSchema>
 
-// ✅ Safe parsing with v4 error helpers
+/**
+ * Safely parses an unknown input against the {@link UserSchema}.
+ *
+ * @param input - The raw value to validate.
+ * @returns The validated {@link User} object.
+ * @throws {Error} If validation fails, containing the Zod treeified error as JSON.
+ */
 export function parseUser(input: unknown): User {
   const result = UserSchema.safeParse(input)
   if (!result.success) {
@@ -39,4 +49,3 @@ export function parseUser(input: unknown): User {
   }
   return result.data
 }
-

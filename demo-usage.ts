@@ -6,7 +6,9 @@ import {
   type Notification 
 } from '@coderabbit-test/shared-services';
 
+/** Shared {@link AnalyticsService} instance used to track application events. */
 const analytics = new AnalyticsService();
+/** Shared {@link NotificationService} instance used to send and manage notifications. */
 const notifications = new NotificationService();
 
 /**

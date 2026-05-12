@@ -1,5 +1,8 @@
 import * as z from "zod";
 
+/**
+ * Zod schema for validating user data including id, email, age, role, website URLs, tags, and trails.
+ */
 export const User = z.object({
   id: z.string().uuid({ message: "Invalid id" }),
   email: z.string().email({ message: "Invalid email" }),
@@ -17,16 +20,26 @@ export const User = z.object({
   })
 });
 
+/** TypeScript type inferred from the {@link User} Zod schema. */
 export type User = z.infer<typeof User>;
 
-// Safe parsing
+/**
+ * Safely parses an unknown input against the {@link User} schema.
+ *
+ * @param input - The raw value to validate.
+ * @returns The validated {@link User} object.
+ * @throws {Error} If validation fails, containing the formatted Zod errors as JSON.
+ */
 export function parseUser(input: unknown) {
   const r = User.safeParse(input);
   if (!r.success) throw new Error(JSON.stringify(r.error.format()));
   return r.data;
 }
 
-// Discriminated union, each status as a separate literal
+/**
+ * Discriminated union schema representing an operation result keyed by `status`.
+ * Possible statuses: "success" (with `data`), "error" (with `message`), "fail" (with `message`).
+ */
 export const Result = z.discriminatedUnion("status", [
   z.object({ status: z.literal("success"), data: z.string() }),
   z.object({ status: z.literal("error"), message: z.string() }),
@@ -36,5 +49,5 @@ export const Result = z.discriminatedUnion("status", [
 /** Validates that a string is non-empty, then trims surrounding whitespace. */
 export const TrimmedNonEmpty = z.string().min(1).transform(s => s.trim());
 
-// Built-in JSON Schema export (v4)
+/** JSON Schema representation of the {@link User} Zod schema, generated via the built-in Zod v4 JSON Schema exporter. */
 export const userJsonSchema = z.toJSONSchema(User);

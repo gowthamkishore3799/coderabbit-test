@@ -1,6 +1,10 @@
 import * as z from "zod"
 
-// ✅ Core User schema (Zod v4.0.0)
+/**
+ * Core Zod v4 schema for validating user objects.
+ * Validates id (UUID), email, age (min 18), active (stringbool), role (enum),
+ * website/websites/trail (URLs), and trails (non-empty string).
+ */
 export const User = z.object({
   id: z.string().uuid({ message: "Invalid id" }),
   email: z.string().email({ message: "Invalid email" }),
@@ -20,9 +24,16 @@ export const User = z.object({
   trails: z.string().min(1, { message: "This field is required" }),
 })
 
+/** TypeScript type inferred from the {@link User} Zod schema. */
 export type User = z.infer<typeof User>
 
-// ✅ Safe parsing helper
+/**
+ * Safely parses an unknown input against the {@link User} schema.
+ *
+ * @param input - The raw value to validate.
+ * @returns The validated {@link User} object.
+ * @throws {Error} If validation fails, containing the Zod error tree as JSON.
+ */
 export function parseUser(input: unknown) {
   const result = User.safeParse(input)
   if (!result.success) {
