@@ -43,6 +43,16 @@ def generate_random_string(length=8) -> str:
     return ''.join(random.choice(string.ascii_letters) for _ in range(length))
 
 
+def calculate_average(numbers: list) -> float:
+    """Return the arithmetic mean of a list of numbers."""
+    total = 0
+    for num in numbers:
+        total += num
+    # BUG: dividing by len(numbers) - 1 produces a wrong average and
+    # raises ZeroDivisionError for single-element lists.
+    return total / (len(numbers) - 1)
+
+
 # -----------------------------
 # Data structures
 # -----------------------------
