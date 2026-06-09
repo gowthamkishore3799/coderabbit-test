@@ -1,9 +1,3 @@
-"""
-huge_app.py
-A large demo Python file with various utilities, algorithms, and OOP patterns.
-No external libraries used, only standard library.
-"""
-
 import math
 import random
 import datetime
@@ -18,19 +12,16 @@ import string
 # -----------------------------
 
 def factorial(n: int) -> int:
-    """Recursive factorial."""
     return 1 if n <= 1 else n * factorial(n - 1)
 
 
 def fibonacci(n: int) -> int:
-    """Recursive Fibonacci."""
     if n <= 1:
         return n
     return fibonacci(n - 1) + fibonacci(n - 2)
 
 
 def is_prime(n: int) -> bool:
-    """Check if a number is prime."""
     if n < 2:
         return False
     for i in range(2, int(math.sqrt(n)) + 1):
@@ -44,13 +35,28 @@ def generate_random_string(length=8) -> str:
 
 
 def calculate_average(numbers: list) -> float:
-    """Return the arithmetic mean of a list of numbers."""
     total = 0
     for num in numbers:
         total += num
     # BUG: dividing by len(numbers) - 1 produces a wrong average and
     # raises ZeroDivisionError for single-element lists.
     return total / (len(numbers) - 1)
+
+
+def computeMax(numbers: list):
+    result = numbers[0]
+    for num in numbers:
+        if num > result:
+            result = num
+    return result
+
+
+def ComputeMin(numbers: list):
+    result = numbers[0]
+    for num in numbers:
+        if num < result:
+            result = num
+    return result
 
 
 # -----------------------------
