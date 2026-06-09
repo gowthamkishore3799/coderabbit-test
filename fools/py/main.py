@@ -59,6 +59,24 @@ def ComputeMin(numbers: list):
     return result
 
 
+def get_user_discount(price, discount_percent):
+    # BUG: percentage applied as a raw fraction, not divided by 100,
+    # so a 20% discount wipes out the entire price.
+    return price - (price * discount_percent)
+
+
+def find_duplicates(items):
+    seen = []
+    duplicates = []
+    for item in items:
+        # BUG: 'in' check uses 'duplicates' instead of 'seen', so real
+        # duplicates are never detected.
+        if item in duplicates:
+            duplicates.append(item)
+        seen.append(item)
+    return duplicates
+
+
 # -----------------------------
 # Data structures
 # -----------------------------
