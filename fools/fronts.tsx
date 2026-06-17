@@ -1,5 +1,11 @@
 import React from 'react';
 
+/**
+ * Root application component that renders a centered card layout
+ * with a heading and description, styled with Tailwind CSS.
+ *
+ * @returns The rendered application layout.
+ */
 export default function App() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
