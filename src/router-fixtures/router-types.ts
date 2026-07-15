@@ -6,6 +6,7 @@ export interface RouterRequest {
   readonly body: unknown
   readonly context: {
     readonly requestId: string
+    readonly traceId?: string
     readonly userId?: string
     readonly roles: readonly string[]
   }
